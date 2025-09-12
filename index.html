@@ -1,41 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Aidan's Portfolio</title>
   <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
 </head>
+
 <body>
   <div class="container">
     <aside class="left-nav">
       <h1><span>aidan sky chang</span></h1>
       <!-- Fill in Tabs names here -->
       <ul class="nav-links">
-        <li>films</li>
-        <li>comics & drawings</li>
-        <li>about</li>
+        <li class="tab" data-tab="films">films</li>
+        <li class="tab" data-tab="comics">comics & drawings</li>
+        <li class="tab" data-tab="about">about</li>
       </ul>
     </aside>
-    
+
     <main class="page-content">
-      <div>
-        <!-- Row with 1 image -->
-        <div class="single-content-images">
+      <div id="tabs">
+        <div id="tab-films" class="hidden">
+          <!-- Content for films -->
+          <!-- Row with 1 image -->
+          <div class="single-content-images">
             <div class="image-box-single"></div>
-            </div>
+          </div>
+          <!-- Row with 2 images -->
+          <div class="dual-content-images">
+            <div class="image-box-dual"></div>
+            <div class="image-box-dual"></div>
+          </div>
         </div>
-        <!-- Row with 2 images -->
-        <div class="dual-content-images">
+        <div id="tab-comics" class="hidden">
+          <!-- Content for comics & drawings -->
+          <!-- Row with 1 image -->
+          <div class="single-content-images">
+            <div class="image-box-single"></div>
+          </div>
+          <!-- Row with 2 images -->
+          <div class="dual-content-images">
             <div class="image-box-dual"></div>
             <div class="image-box-dual"></div>
+          </div>
         </div>
       </div>
-    </main>
+      <div id="tab-about" class="hidden">
+        <!-- Content for about -->
+        <!-- ✏️ About Text -->
+        <div class="about-text">
+          <p>Hello! I’m Aidan Sky Chang — a filmmaker. Welcome to my portfolio!</p>
+        </div>
+      </div>
+  </div>
+  </div>
+  </main>
   </div>
 
   <!-- Copyright footer -->
   <footer>
-   © 2025 AIDAN CHANG
+    © 2025 AIDAN CHANG
   </footer>
 </body>
+
 </html>

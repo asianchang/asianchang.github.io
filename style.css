@@ -11,6 +11,10 @@ body {
   min-height: 100vh;
 }
 
+.tab {
+  cursor: pointer;
+}
+
 .container {
   display: flex;
   flex: 1;
@@ -25,12 +29,6 @@ body {
 .left-nav h1 {
   font-size: 24px;
   font-weight: bold;
-}
-
-.highlight {
-  background-color: yellow;
-  display: inline-block;
-  padding: 2px 6px;
 }
 
 .nav-links {
@@ -77,6 +75,12 @@ body {
   position: relative;
 }
 
+/* 🔴 Override for images inside tab-comics */
+#tab-comics .image-box-single,
+#tab-comics .image-box-dual {
+  background-color: red;
+}
+
 .caption {
   margin-top: 8px;
   font-family: monospace;
@@ -89,4 +93,8 @@ footer {
   font-family: monospace;
   font-size: 14px;
   color: #888;
+}
+
+.hidden {
+  display: none;
 }
