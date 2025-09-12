@@ -5,10 +5,15 @@
 }
 
 body {
-  font-family: Arial, sans-serif;
+  font-family: "Segoe UI","Roboto","Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  font-size: 1em;
+}
+
+.name-title {
+  font-size: 1.5em;
 }
 
 .tab {
@@ -83,14 +88,12 @@ body {
 
 .caption {
   margin-top: 8px;
-  font-family: monospace;
   color: #888;
 }
 
 footer {
   text-align: center;
   padding: 20px;
-  font-family: monospace;
   font-size: 14px;
   color: #888;
 }
