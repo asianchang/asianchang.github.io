@@ -2,32 +2,32 @@ document.addEventListener("DOMContentLoaded", function () {
   const tabs = document.querySelectorAll(".tab");
   const tabContents = document.querySelectorAll("#tabs > div");
 
-function showTab(targetTab) {
-  const targetId = "tab-" + targetTab;
+  function showTab(targetTab) {
+    const targetId = "tab-" + targetTab;
 
-  // Hide all tab contents
-  tabContents.forEach(content => {
-    content.classList.add("hidden");
-  });
+    // Hide all tab contents
+    tabContents.forEach(content => {
+      content.classList.add("hidden");
+    });
 
-  // Show selected tab content
-  const targetContent = document.getElementById(targetId);
-  if (targetContent) {
-    targetContent.classList.remove("hidden");
+    // Show selected tab content
+    const targetContent = document.getElementById(targetId);
+    if (targetContent) {
+      targetContent.classList.remove("hidden");
+    }
+
+    // Remove 'active' class from all tabs
+    tabs.forEach(t => t.classList.remove("active"));
+
+    // Add 'active' class to the clicked tab
+    const activeTab = Array.from(tabs).find(t => t.getAttribute("data-tab") === targetTab);
+    if (activeTab) {
+      activeTab.classList.add("active");
+    }
+
+    // Save the selected tab to localStorage
+    localStorage.setItem("lastTab", targetTab);
   }
-
-  // Remove 'active' class from all tabs
-  tabs.forEach(t => t.classList.remove("active"));
-
-  // Add 'active' class to the clicked tab
-  const activeTab = Array.from(tabs).find(t => t.getAttribute("data-tab") === targetTab);
-  if (activeTab) {
-    activeTab.classList.add("active");
-  }
-
-  // Save the selected tab to localStorage
-  localStorage.setItem("lastTab", targetTab);
-}
 
   // Add click event to each tab
   tabs.forEach(tab => {
@@ -37,7 +37,18 @@ function showTab(targetTab) {
     });
   });
 
-  // 🔁 On page load, restore the last tab or default to "films"
+  // ** New: Add click event to thumbnails **
+  const thumbnails = document.querySelectorAll(".home-thumbnail");
+  thumbnails.forEach(thumbnail => {
+    thumbnail.addEventListener("click", () => {
+      const targetTab = thumbnail.getAttribute("data-tab-target");
+      if (targetTab) {
+        showTab(targetTab);
+      }
+    });
+  });
+
+  // On page load, restore the last tab or default to "films"
   const lastTab = localStorage.getItem("lastTab") || "films";
   showTab(lastTab);
 });

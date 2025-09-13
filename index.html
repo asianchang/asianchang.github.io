@@ -16,17 +16,40 @@
 <body>
   <div class="container">
     <aside class="left-nav">
-      <p class="name-title">aidan sky chang</p>
+      <p class="name-title tab" data-tab="home">aidan sky chang</p>
       <!-- Fill in Tabs names here -->
       <ul class="nav-links">
         <li class="tab" data-tab="films">films</li>
-        <li class="tab" data-tab="comics">comics & drawings</li>
+        <li class="tab" data-tab="comics">comics</li>
+        <li class="tab" data-tab="drawings">drawings</li>
         <li class="tab" data-tab="about">about</li>
       </ul>
     </aside>
 
     <main class="page-content">
       <div id="tabs">
+        <div id="tab-home">
+          <div class="home-grid">
+            <div class="home-thumbnail" data-tab-target="films">
+              <div class="thumbnail-wrapper">
+                <img src="res/film-thumbnail.jpg" alt="Films">
+                <div class="thumbnail-overlay">FILM</div>
+              </div>
+            </div>
+            <div class="home-thumbnail" data-tab-target="comics">
+              <div class="thumbnail-wrapper">
+                <img src="res/comics-thumbnail.png" alt="Comics">
+                <div class="thumbnail-overlay">COMICS</div>
+              </div>
+            </div>
+            <div class="home-thumbnail" data-tab-target="drawings">
+              <div class="thumbnail-wrapper">
+                <img src="res/drawings-thumbnail.PNG" alt="Drawings">
+                <div class="thumbnail-overlay">DRAWINGS</div>
+              </div>
+            </div>
+          </div>
+        </div>
         <div id="tab-films" class="hidden">
           <!-- Content for films -->
           <!-- Row with 1 image -->
@@ -45,7 +68,19 @@
           </div>
         </div>
         <div id="tab-comics" class="hidden">
-          <!-- Content for comics & drawings -->
+          <!-- Content for comics -->
+          <!-- Row with 1 image -->
+          <div class="single-content-images">
+            <div class="image-box-single"></div>
+          </div>
+          <!-- Row with 2 images -->
+          <div class="dual-content-images">
+            <div class="image-box-dual"></div>
+            <div class="image-box-dual"></div>
+          </div>
+        </div>
+        <div id="tab-drawings" class="hidden">
+          <!-- Content for drawings -->
           <!-- Row with 1 image -->
           <div class="single-content-images">
             <div class="image-box-single"></div>
