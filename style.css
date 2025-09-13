@@ -229,7 +229,7 @@ footer {
 
   .home-thumbnail {
     width: 100%;
-    max-width: 80vw;
+    max-width: 90vw;
   }
 
   .home-thumbnail:nth-child(3) {
