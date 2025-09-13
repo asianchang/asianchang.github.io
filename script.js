@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
   const tabs = document.querySelectorAll(".tab");
   const tabContents = document.querySelectorAll("#tabs > div");
+  const nameTitle = document.querySelector(".name-title.tab");
 
   function showTab(targetTab) {
     const targetId = "tab-" + targetTab;
@@ -37,18 +38,14 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // ** New: Add click event to thumbnails **
-  const thumbnails = document.querySelectorAll(".home-thumbnail");
-  thumbnails.forEach(thumbnail => {
-    thumbnail.addEventListener("click", () => {
-      const targetTab = thumbnail.getAttribute("data-tab-target");
-      if (targetTab) {
-        showTab(targetTab);
-      }
+  // Add click event to name-title to go to home tab
+  if (nameTitle) {
+    nameTitle.addEventListener("click", () => {
+      showTab("home");
     });
-  });
+  }
 
-  // On page load, restore the last tab or default to "films"
-  const lastTab = localStorage.getItem("lastTab") || "films";
+  // On page load, restore last tab or default to "home"
+  const lastTab = localStorage.getItem("lastTab") || "home";
   showTab(lastTab);
 });
