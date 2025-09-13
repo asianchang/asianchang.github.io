@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
       element.addEventListener("touchstart", (e) => {
         touchTimeout = setTimeout(() => {
           callback();
-        }, 150); // 300ms press required
+        }, 50); 
       });
       element.addEventListener("touchend", (e) => {
         clearTimeout(touchTimeout);
