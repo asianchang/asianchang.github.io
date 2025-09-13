@@ -4,34 +4,46 @@ document.addEventListener("DOMContentLoaded", function () {
   const nameTitle = document.querySelector(".name-title.tab");
   const thumbnails = document.querySelectorAll(".home-thumbnail");
 
-  function showTab(targetTab) {
+  /**
+   * Show the requested tab
+   * @param {string} targetTab - name of tab (e.g., 'films')
+   * @param {boolean} updateUrl - whether to update URL (default true)
+   */
+  function showTab(targetTab, updateUrl = true) {
     const targetId = "tab-" + targetTab;
 
-    // Hide all tab contents
+    // Hide all tabs
     tabContents.forEach(content => {
       content.classList.add("hidden");
     });
 
-    // Show selected tab content
+    // Show selected tab
     const targetContent = document.getElementById(targetId);
     if (targetContent) {
       targetContent.classList.remove("hidden");
     }
 
-    // Remove 'active' class from all tabs
+    // Update tab highlighting
     tabs.forEach(t => t.classList.remove("active"));
-
-    // Add 'active' class to the matching tab
     const activeTab = Array.from(tabs).find(t => t.getAttribute("data-tab") === targetTab);
     if (activeTab) {
       activeTab.classList.add("active");
     }
 
-    // Save the selected tab to localStorage
+    // Save last tab
     localStorage.setItem("lastTab", targetTab);
+
+    // Update URL
+    if (updateUrl) {
+      const newUrl = new URL(window.location);
+      newUrl.searchParams.set("tab", targetTab);
+      history.pushState({ tab: targetTab }, "", newUrl);
+    }
   }
 
-  // Tab clicks
+  /**
+   * Set up tab click/touch handlers
+   */
   tabs.forEach(tab => {
     const handler = () => {
       const target = tab.getAttribute("data-tab");
@@ -41,14 +53,18 @@ document.addEventListener("DOMContentLoaded", function () {
     tab.addEventListener("touchend", handler);
   });
 
-  // Title click → go to home tab
+  /**
+   * Name title ("aidan sky chang") goes to 'home'
+   */
   if (nameTitle) {
     const handler = () => showTab("home");
     nameTitle.addEventListener("click", handler);
     nameTitle.addEventListener("touchend", handler);
   }
 
-  // Thumbnail clicks → go to matching tab
+  /**
+   * Thumbnails on home grid go to respective tabs
+   */
   thumbnails.forEach(thumbnail => {
     const handler = () => {
       const target = thumbnail.getAttribute("data-tab-target");
@@ -58,7 +74,21 @@ document.addEventListener("DOMContentLoaded", function () {
     thumbnail.addEventListener("touchend", handler);
   });
 
-  // On load → restore last tab or default to home
+  /**
+   * Handle browser back/forward buttons
+   */
+  window.addEventListener("popstate", (event) => {
+    const tab = event.state?.tab || new URLSearchParams(window.location.search).get("tab") || "home";
+    showTab(tab, false); // Don't push new URL
+  });
+
+  /**
+   * Initial page load: get tab from URL, fallback to lastTab or 'home'
+   */
+  const urlParams = new URLSearchParams(window.location.search);
+  const urlTab = urlParams.get("tab");
   const lastTab = localStorage.getItem("lastTab") || "home";
-  showTab(lastTab);
+  const initialTab = urlTab || lastTab;
+
+  showTab(initialTab, false); // Initial load — don't push URL again
 });
