@@ -229,8 +229,7 @@ footer {
 
   .home-thumbnail {
     width: 100%;
-    max-width: 90vw;
-    /* Add some padding from screen edge */
+    max-width: 80vw;
   }
 
   .home-thumbnail:nth-child(3) {
