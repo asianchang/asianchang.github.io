@@ -172,6 +172,11 @@ footer {
   text-transform: uppercase;
 }
 
+.thumbnail-title {
+  margin-top: 20px;
+  font-weight: 500;
+}
+
 .thumbnail-wrapper:hover .thumbnail-overlay {
   opacity: 1;
 }
