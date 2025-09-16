@@ -9,17 +9,19 @@ document.addEventListener("DOMContentLoaded", function () {
   function showTab(targetTab, updateUrl = true) {
     const targetId = "tab-" + targetTab;
 
+    // Hide all tab content
     tabContents.forEach(content => content.classList.add("hidden"));
 
+    // Show the target tab content
     const targetContent = document.getElementById(targetId);
     if (targetContent) targetContent.classList.remove("hidden");
 
+    // Update active tab classes
     tabs.forEach(t => t.classList.remove("active"));
     const activeTab = Array.from(tabs).find(t => t.getAttribute("data-tab") === targetTab);
     if (activeTab) activeTab.classList.add("active");
 
-    localStorage.setItem("lastTab", targetTab);
-
+    // Update URL if needed
     if (updateUrl) {
       const newUrl = new URL(window.location);
       newUrl.searchParams.set("tab", targetTab);
@@ -27,7 +29,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // Regular click or touch handler without delay
   function addInstantClickHandler(element, callback) {
     if (isTouchDevice) {
       element.addEventListener("touchend", (e) => {
@@ -39,27 +40,22 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // Delayed press handler (300ms press required)
   function addDelayedPressHandler(element, callback) {
     if (isTouchDevice) {
       let touchTimeout;
-      element.addEventListener("touchstart", (e) => {
+      element.addEventListener("touchstart", () => {
         touchTimeout = setTimeout(() => {
           callback();
-        }, 50); 
+        }, 300); // Use 300ms for clearer long press
       });
-      element.addEventListener("touchend", (e) => {
-        clearTimeout(touchTimeout);
-      });
-      element.addEventListener("touchmove", (e) => {
-        clearTimeout(touchTimeout);
-      });
+      element.addEventListener("touchend", () => clearTimeout(touchTimeout));
+      element.addEventListener("touchmove", () => clearTimeout(touchTimeout));
     } else {
       element.addEventListener("click", callback);
     }
   }
 
-  // Apply regular click to tabs and nameTitle
+  // Set up tab click handlers
   tabs.forEach(tab => {
     addInstantClickHandler(tab, () => {
       const target = tab.getAttribute("data-tab");
@@ -67,13 +63,14 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
+  // Set up nameTitle click (go to home)
   if (nameTitle) {
     addInstantClickHandler(nameTitle, () => {
       showTab("home");
     });
   }
 
-  // Apply delayed press only to home thumbnails
+  // Set up delayed press for home thumbnails
   thumbnails.forEach(thumbnail => {
     addDelayedPressHandler(thumbnail, () => {
       const target = thumbnail.getAttribute("data-tab-target");
@@ -81,15 +78,12 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
+  // Handle browser back/forward buttons
   window.addEventListener("popstate", (event) => {
     const tab = event.state?.tab || new URLSearchParams(window.location.search).get("tab") || "home";
     showTab(tab, false);
   });
 
-  const urlParams = new URLSearchParams(window.location.search);
-  const urlTab = urlParams.get("tab");
-  const lastTab = localStorage.getItem("lastTab") || "home";
-  const initialTab = urlTab || lastTab;
-
-  showTab(initialTab, false);
+  // On initial load: always default to "home"
+  showTab("home", false);
 });
