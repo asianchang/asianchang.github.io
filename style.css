@@ -124,16 +124,25 @@ body {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: none;
+  background-color: #ccc; /* light grey circle */
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
   border: none;
-  color: black;
-  font-size: 2rem;
   cursor: pointer;
   user-select: none;
-  padding: 0 10px;
-  line-height: 1;
-}
 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #444; /* dark grey arrow */
+  font-size: 1.5rem;
+  line-height: 1;
+
+  box-sizing: border-box;
+  transition: background-color 0.3s ease;
+}
 .carousel-arrow.left {
   left: 5px;
 }

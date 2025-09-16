@@ -106,7 +106,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     imageList.forEach((src, index) => {
       const img = document.createElement("img");
-      img.src = src;
+      img.src = "res/" + src;
       img.alt = `Image ${index + 1}`;
       img.classList.add("carousel-image");
       if (index === 0) img.classList.add("active");
@@ -126,7 +126,7 @@ document.addEventListener("DOMContentLoaded", function () {
       showImage(currentIndex);
     }
 
-    function prevImage() {
+    function prevImage() {f
       currentIndex = (currentIndex - 1 + images.length) % images.length;
       showImage(currentIndex);
     }
@@ -135,7 +135,7 @@ document.addEventListener("DOMContentLoaded", function () {
     prevBtn.addEventListener("click", prevImage);
   }
 
-  initCarousel("carousel-1", ["1.png", "2.png", "3.png"]);
-  initCarousel("carousel-2", ["4.png", "5.png", "6.png"]);
+  initCarousel("carousel-1", ["friends-1.png", "friends-2.png", "friends-3.png"]);
+  initCarousel("carousel-2", ["job1.png", "job2.png", "job3.png"]);
 
 });
