@@ -86,4 +86,56 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // On initial load: always default to "home"
   showTab("home", false);
+
+
+  // Comics Carousels
+  function initCarousel(containerId, imageList) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+
+    const slide = container.querySelector(".carousel-slide");
+    const prevBtn = container.querySelector(".carousel-arrow.left");
+    const nextBtn = container.querySelector(".carousel-arrow.right");
+
+    if (!slide || !prevBtn || !nextBtn) return;
+
+    let currentIndex = 0;
+
+    // Clear previous images if any
+    slide.innerHTML = "";
+
+    imageList.forEach((src, index) => {
+      const img = document.createElement("img");
+      img.src = src;
+      img.alt = `Image ${index + 1}`;
+      img.classList.add("carousel-image");
+      if (index === 0) img.classList.add("active");
+      slide.appendChild(img);
+    });
+
+    const images = slide.querySelectorAll(".carousel-image");
+
+    function showImage(index) {
+      images.forEach((img, i) => {
+        img.classList.toggle("active", i === index);
+      });
+    }
+
+    function nextImage() {
+      currentIndex = (currentIndex + 1) % images.length;
+      showImage(currentIndex);
+    }
+
+    function prevImage() {
+      currentIndex = (currentIndex - 1 + images.length) % images.length;
+      showImage(currentIndex);
+    }
+
+    nextBtn.addEventListener("click", nextImage);
+    prevBtn.addEventListener("click", prevImage);
+  }
+
+  initCarousel("carousel-1", ["1.png", "2.png", "3.png"]);
+  initCarousel("carousel-2", ["4.png", "5.png", "6.png"]);
+
 });
