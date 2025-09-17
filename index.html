@@ -111,28 +111,28 @@
           </div>
 
           <div class="comic-container">
-            <div class="comic-thumbnail">
+            <div class="comic-thumbnail clickable">
               <img src="res/comics/job1.png" alt="Job Hunt Comic">
             </div>
             <div class="caption">Job Hunt</div>
           </div>
 
           <div class="comic-container">
-            <div class="comic-thumbnail">
+            <div class="comic-thumbnail clickable">
               <img src="res/comics/openly.png" alt="Eternally Comic">
             </div>
             <div class="caption">Eternally</div>
           </div>
 
           <div class="comic-container">
-            <div class="comic-thumbnail">
+            <div class="comic-thumbnail clickable">
               <img src="res/comics/seen.png" alt="On Being Seen Comic">
             </div>
             <div class="caption">On Being Seen</div>
           </div>
 
           <div class="comic-container">
-            <div class="comic-thumbnail">
+            <div class="comic-thumbnail clickable">
               <img src="res/comics/grown.png" alt="New Year's Comic">
             </div>
             <div class="caption">New Year's Comic</div>
@@ -173,12 +173,18 @@
               </div>
             </div>
 
-            <div class="drawing-item full-width clickable" data-subtab="traveling-sketchbook">
-              <img src="res/drawings/008_JapanSketchbook.jpg">
+            <div class="drawing-item full-width clickable" data-tab-target="japan-sketchbook">
+              <div class="thumbnail-wrapper">
+                <img src="res/drawings/008_JapanSketchbook.jpg">
+                <div class="thumbnail-overlay">sketches through japan</div>
+              </div>
             </div>
 
-            <div class="drawing-item full-width clickable">
-              <img src="res/drawings/009_TravelingSketchbookPages.jpg">
+            <div class="drawing-item full-width clickable" data-tab-target="traveling-sketchbook">
+              <div class="thumbnail-wrapper">
+                <img src="res/drawings/009_TravelingSketchbookPages.jpg">
+                <div class="thumbnail-overlay">traveling sketchbook pages</div>
+              </div>
             </div>
 
             <div class="drawing-item full-width">
@@ -197,11 +203,6 @@
               <img src="res/drawings/013_MilfordRiver.png">
             </div>
           </div>
-
-          <!-- Subtab upon clicking on a clickable item -->
-          <div id="drawing-subtab-traveling-sketchbook" class="drawing-subtab hidden">
-            <p>Here is more about the Traveling Sketchbook!</p>
-          </div>
         </div>
 
         <div id="tab-about" class="hidden">
@@ -211,8 +212,21 @@
             <p>Hello! I’m Aidan Sky Chang — a filmmaker. Welcome to my portfolio!</p>
           </div>
         </div>
+
+        <!-- Drawing Subtab: Sketches Through Japan -->
+        <div id="tab-japan-sketchbook" class="drawing-subtab hidden">
+          <div class="drawing-subtab-content">
+            <p class="subtab-title">sketches through japan</p>
+          </div>
+        </div>
+
+        <!-- Drawing Subtab: Traveling Sketchbook -->
+        <div id="tab-traveling-sketchbook" class="drawing-subtab hidden">
+          <div class="drawing-subtab-content">
+            <p class="subtab-title">traveling sketchbook pages</p>
+          </div>
+        </div>
       </div>
-  </div>
   </div>
   </main>
   </div>

@@ -91,11 +91,6 @@ body {
   color: #888;
 }
 
-.caption {
-  margin-top: 8px;
-  color: #888;
-}
-
 .carousel-container {
   position: relative;
   width: 100%;
@@ -144,6 +139,13 @@ body {
   right: 5px;
 }
 
+.subtab-title {
+  font-size: 1.5rem;
+  font-weight: 400;
+  text-align: center;
+  color: #174365;
+}
+
 footer {
   text-align: center;
   padding: 20px;
@@ -153,6 +155,10 @@ footer {
 
 .hidden {
   display: none;
+}
+
+.clickable {
+  cursor: pointer;
 }
 
 /* Home page grid layout  */
@@ -237,7 +243,7 @@ footer {
 .comic-thumbnail {
   width: 100%;
   height: 100%;
-  overflow: hidden;
+  cursor: pointer;
 }
 
 /* Comic image itself */

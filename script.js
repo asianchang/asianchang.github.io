@@ -6,26 +6,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
-  const clickableDrawings = document.querySelectorAll('.drawing-item.clickable');
-  const subtabs = document.querySelectorAll('.drawing-subtab');
-
-  clickableDrawings.forEach(item => {
-    item.addEventListener('click', () => {
-      const subtabId = item.getAttribute('data-subtab');
-      if (!subtabId) return;
-
-      // Hide all subtabs
-      subtabs.forEach(subtab => subtab.classList.add('hidden'));
-
-      // Show the selected subtab
-      const target = document.getElementById(`drawing-subtab-${subtabId}`);
-      if (target) {
-        target.classList.remove('hidden');
-        target.scrollIntoView({ behavior: 'smooth' }); // optional: scrolls to it
-      }
-    });
-  });
-
   function showTab(targetTab, updateUrl = true) {
     const targetId = "tab-" + targetTab;
 
@@ -75,10 +55,19 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // Set up tab click handlers
+  // Set up main tab click handlers
   tabs.forEach(tab => {
     addInstantClickHandler(tab, () => {
       const target = tab.getAttribute("data-tab");
+      if (target) showTab(target);
+    });
+  });
+
+  // Set up sub tabs click handlers (for Comics and Drawings)
+  const clickableDrawings = document.querySelectorAll('.drawing-item.clickable');
+  clickableDrawings.forEach(item => {
+    addInstantClickHandler(item, () => {
+      const target = item.getAttribute('data-tab-target');
       if (target) showTab(target);
     });
   });
@@ -92,6 +81,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Set up delayed press for home thumbnails
   thumbnails.forEach(thumbnail => {
+    addDelayedPressHandler(thumbnail, () => {
+      const target = thumbnail.getAttribute("data-tab-target");
+      if (target) showTab(target);
+    });
+  });
+
+  // Set up delayed press for clickable drawings
+  clickableDrawings.forEach(thumbnail => {
     addDelayedPressHandler(thumbnail, () => {
       const target = thumbnail.getAttribute("data-tab-target");
       if (target) showTab(target);
@@ -119,7 +116,46 @@ document.addEventListener("DOMContentLoaded", function () {
   const cleanUrl = window.location.origin + window.location.pathname;
   history.replaceState({ tab: initialTab }, "", cleanUrl);
 
-  // Comics Carousels
+  // ========== DRAWING SUBTAB NAVIGATION ==========
+  const drawingClickableItems = document.querySelectorAll('.drawing-item.clickable');
+  const allDrawingSubtabs = document.querySelectorAll('[id^="drawing-subtab-"]');
+
+  drawingClickableItems.forEach(item => {
+    item.addEventListener('click', () => {
+      const subtabId = item.getAttribute('data-subtab');
+      if (!subtabId) return;
+
+      // Hide all tabs and subtabs
+      tabContents.forEach(tab => tab.classList.add('hidden'));
+      allDrawingSubtabs.forEach(subtab => subtab.classList.add('hidden'));
+
+      const target = document.getElementById(`drawing-subtab-${subtabId}`);
+      if (target) {
+        target.classList.remove('hidden');
+      }
+    });
+  });
+
+  // BACK BUTTON in subtab
+  const backButtons = document.querySelectorAll('.back-button');
+  backButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const targetTab = button.getAttribute('data-target-tab');
+      if (!targetTab) return;
+
+      // Hide all subtabs
+      allDrawingSubtabs.forEach(subtab => subtab.classList.add('hidden'));
+
+      // Show the main drawings tab
+      const tab = document.getElementById(`tab-${targetTab}`);
+      if (tab) {
+        tab.classList.remove('hidden');
+        tab.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+
+  // ========== COMIC CAROUSELS ==========
   function initCarousel(containerId, imageList) {
     const container = document.getElementById(containerId);
     if (!container) return;
