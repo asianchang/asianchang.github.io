@@ -62,16 +62,6 @@ document.addEventListener("DOMContentLoaded", function () {
       if (target) showTab(target);
     });
   });
-
-  // Set up sub tabs click handlers (for Comics and Drawings)
-  const clickableDrawings = document.querySelectorAll('.drawing-item.clickable');
-  clickableDrawings.forEach(item => {
-    addInstantClickHandler(item, () => {
-      const target = item.getAttribute('data-tab-target');
-      if (target) showTab(target);
-    });
-  });
-
   // Set up nameTitle click (go to home)
   if (nameTitle) {
     addInstantClickHandler(nameTitle, () => {
@@ -88,9 +78,9 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // Set up delayed press for clickable drawings
-  clickableDrawings.forEach(thumbnail => {
-    addDelayedPressHandler(thumbnail, () => {
-      const target = thumbnail.getAttribute("data-tab-target");
+  clickableDrawings.forEach(drawing => {
+    addDelayedPressHandler(drawing, () => {
+      const target = drawing.getAttribute("data-tab-target");
       if (target) showTab(target);
     });
   });
