@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
       element.addEventListener("touchstart", () => {
         touchTimeout = setTimeout(() => {
           callback();
-        }, 300); // Use 300ms for clearer long press
+        }, 50);
       });
       element.addEventListener("touchend", () => clearTimeout(touchTimeout));
       element.addEventListener("touchmove", () => clearTimeout(touchTimeout));
@@ -84,14 +84,20 @@ document.addEventListener("DOMContentLoaded", function () {
     showTab(tab, false);
   });
 
-  // On initial load: always default to "home" or the tab from URL
+  const isReload = performance.getEntriesByType("navigation")[0].type // 0 = Reload
+
   const urlParams = new URLSearchParams(window.location.search);
-  const initialTab = urlParams.get("tab") || "home";
+  let initialTab = urlParams.get("tab");
+
+  if (isReload || !initialTab) {
+    initialTab = "home";
+  }
+
   showTab(initialTab, false);
 
-  // Now clean up URL to remove the ?tab= query param without reloading
+  // Clean URL, but preserve state
   const cleanUrl = window.location.origin + window.location.pathname;
-  history.replaceState({}, "", cleanUrl);
+  history.replaceState({ tab: initialTab }, "", cleanUrl);
 
   // Comics Carousels
   function initCarousel(containerId, imageList) {
@@ -169,5 +175,5 @@ document.addEventListener("DOMContentLoaded", function () {
   initCarousel("carousel-2", ["job1.png", "job2.png", "job3.png"]);
   initCarousel("carousel-3", ["openly.png"]);
   initCarousel("carousel-4", ["on being seen.png"]);
-  initCarousel("carousel-5", ["ive grown a lot.png"]);
+  initCarousel("carousel-5", ["grown.png"]);
 });
