@@ -195,7 +195,6 @@ footer {
 
 .thumbnail-wrapper img {
   display: block;
-  width: 100%;
   height: 50vh;
   object-fit: cover;
 }
@@ -231,7 +230,6 @@ footer {
 /* Each comic entry */
 .comic-container {
   width: 50%;
-  max-width: 600px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -240,7 +238,7 @@ footer {
 }
 
 /* Comic image wrapper */
-.comic-thumbnail {
+.thumbnail-wrapper .comic {
   width: 100%;
   height: 100%;
   cursor: pointer;
