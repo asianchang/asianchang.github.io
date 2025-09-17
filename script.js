@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const tabContents = document.querySelectorAll("#tabs > div");
   const nameTitle = document.querySelector(".name-title.tab");
   const thumbnails = document.querySelectorAll(".home-thumbnail");
+  const clickableDrawings = document.querySelectorAll('.drawing-item.clickable');
 
   const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
@@ -62,6 +63,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (target) showTab(target);
     });
   });
+
   // Set up nameTitle click (go to home)
   if (nameTitle) {
     addInstantClickHandler(nameTitle, () => {
@@ -105,45 +107,6 @@ document.addEventListener("DOMContentLoaded", function () {
   // Clean URL, but preserve state
   const cleanUrl = window.location.origin + window.location.pathname;
   history.replaceState({ tab: initialTab }, "", cleanUrl);
-
-  // ========== DRAWING SUBTAB NAVIGATION ==========
-  const drawingClickableItems = document.querySelectorAll('.drawing-item.clickable');
-  const allDrawingSubtabs = document.querySelectorAll('[id^="drawing-subtab-"]');
-
-  drawingClickableItems.forEach(item => {
-    item.addEventListener('click', () => {
-      const subtabId = item.getAttribute('data-subtab');
-      if (!subtabId) return;
-
-      // Hide all tabs and subtabs
-      tabContents.forEach(tab => tab.classList.add('hidden'));
-      allDrawingSubtabs.forEach(subtab => subtab.classList.add('hidden'));
-
-      const target = document.getElementById(`drawing-subtab-${subtabId}`);
-      if (target) {
-        target.classList.remove('hidden');
-      }
-    });
-  });
-
-  // BACK BUTTON in subtab
-  const backButtons = document.querySelectorAll('.back-button');
-  backButtons.forEach(button => {
-    button.addEventListener('click', () => {
-      const targetTab = button.getAttribute('data-target-tab');
-      if (!targetTab) return;
-
-      // Hide all subtabs
-      allDrawingSubtabs.forEach(subtab => subtab.classList.add('hidden'));
-
-      // Show the main drawings tab
-      const tab = document.getElementById(`tab-${targetTab}`);
-      if (tab) {
-        tab.classList.remove('hidden');
-        tab.scrollIntoView({ behavior: 'smooth' });
-      }
-    });
-  });
 
   // ========== COMIC CAROUSELS ==========
   function initCarousel(containerId, imageList) {
