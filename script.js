@@ -17,9 +17,14 @@ document.addEventListener("DOMContentLoaded", function () {
     const targetContent = document.getElementById(targetId);
     if (targetContent) targetContent.classList.remove("hidden");
 
-    // Update active tab classes
+    // Clear all tabs first
     tabs.forEach(t => t.classList.remove("active"));
-    const activeTab = Array.from(tabs).find(t => t.getAttribute("data-tab") === targetTab);
+
+    // Extract the first segment from targetTab before '-' (or use the whole string if no '-')
+    const mainTabKey = targetTab.split('-')[0];
+
+    // Find and highlight the main tab based on the first segment
+    const activeTab = Array.from(tabs).find(t => t.getAttribute("data-tab") === mainTabKey);
     if (activeTab) activeTab.classList.add("active");
 
     // Update URL if needed
@@ -29,6 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
       history.pushState({ tab: targetTab }, "", newUrl);
     }
   }
+
 
   function addInstantClickHandler(element, callback) {
     if (isTouchDevice) {
