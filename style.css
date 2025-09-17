@@ -85,7 +85,7 @@ body {
 
 .caption {
   margin-top: 0.5rem;
-  font-size: 1rem;
+  font-size: 1.25rem;
   text-align: center;
   margin-top: 8px;
   color: #888;
@@ -238,10 +238,8 @@ footer {
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* centers the image + caption horizontally */
-  margin: 0 auto 100px auto;
+  margin: 0 auto 50px auto;
   position: relative;
-  /* so overlay can anchor to it */
 }
 
 .comics.thumbnail-wrapper img {
@@ -253,16 +251,6 @@ footer {
   margin: 0 auto;
   /* centers inside flex wrapper */
 }
-
-
-/* Caption below each comic */
-.caption {
-  margin-top: 0.5rem;
-  text-align: center;
-  font-size: 0.95rem;
-  color: #444;
-}
-
 
 /* Container for the drawings tab */
 .drawings-grid {
