@@ -6,6 +6,26 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
+  const clickableDrawings = document.querySelectorAll('.drawing-item.clickable');
+  const subtabs = document.querySelectorAll('.drawing-subtab');
+
+  clickableDrawings.forEach(item => {
+    item.addEventListener('click', () => {
+      const subtabId = item.getAttribute('data-subtab');
+      if (!subtabId) return;
+
+      // Hide all subtabs
+      subtabs.forEach(subtab => subtab.classList.add('hidden'));
+
+      // Show the selected subtab
+      const target = document.getElementById(`drawing-subtab-${subtabId}`);
+      if (target) {
+        target.classList.remove('hidden');
+        target.scrollIntoView({ behavior: 'smooth' }); // optional: scrolls to it
+      }
+    });
+  });
+
   function showTab(targetTab, updateUrl = true) {
     const targetId = "tab-" + targetTab;
 
@@ -176,4 +196,5 @@ document.addEventListener("DOMContentLoaded", function () {
   initCarousel("carousel-3", ["openly.png"]);
   initCarousel("carousel-4", ["seen.png"]);
   initCarousel("carousel-5", ["grown.png"]);
+  initCarousel("drawing-carousel-1", [])
 });
