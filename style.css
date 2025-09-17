@@ -86,7 +86,8 @@ body {
   margin-top: 0.5rem;
   font-size: 1rem;
   text-align: center;
-  color: #333;
+  margin-top: 8px;
+  color: #888;
 }
 
 .caption {
@@ -96,11 +97,11 @@ body {
 
 .carousel-container {
   position: relative;
-  width: 300px;
-  height: 200px;
+  width: 100%;
+  max-width: 640px;
+  height: 360px;
   margin: 0 auto;
-  margin-bottom: 30px;
-  overflow: hidden;
+  margin-bottom: 100px;
 }
 
 .carousel-slide {
@@ -124,25 +125,15 @@ body {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background-color: #ccc; /* light grey circle */
-  border-radius: 50%;
-  width: 36px;
-  height: 36px;
+  background: rgba(255,255,255,0.8);
   border: none;
-  cursor: pointer;
-  user-select: none;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
   color: #444; /* dark grey arrow */
-  font-size: 1.5rem;
-  line-height: 1;
-
-  box-sizing: border-box;
-  transition: background-color 0.3s ease;
+    font-size: 1.5rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  z-index: 1;
 }
+
 .carousel-arrow.left {
   left: 5px;
 }

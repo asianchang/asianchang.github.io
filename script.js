@@ -84,9 +84,14 @@ document.addEventListener("DOMContentLoaded", function () {
     showTab(tab, false);
   });
 
-  // On initial load: always default to "home"
-  showTab("home", false);
+  // On initial load: always default to "home" or the tab from URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const initialTab = urlParams.get("tab") || "home";
+  showTab(initialTab, false);
 
+  // Now clean up URL to remove the ?tab= query param without reloading
+  const cleanUrl = window.location.origin + window.location.pathname;
+  history.replaceState({}, "", cleanUrl);
 
   // Comics Carousels
   function initCarousel(containerId, imageList) {
@@ -97,7 +102,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const prevBtn = container.querySelector(".carousel-arrow.left");
     const nextBtn = container.querySelector(".carousel-arrow.right");
 
-    if (!slide || !prevBtn || !nextBtn) return;
+    if (!slide) return;
+
+    const hasArrows = prevBtn && nextBtn;
 
     let currentIndex = 0;
 
@@ -115,27 +122,52 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const images = slide.querySelectorAll(".carousel-image");
 
+    if (images.length <= 1 && hasArrows) {
+      prevBtn.style.display = "none";
+      nextBtn.style.display = "none";
+    }
+
     function showImage(index) {
+      if (index < 0 || index >= images.length) return;
+
       images.forEach((img, i) => {
         img.classList.toggle("active", i === index);
       });
+
+      currentIndex = index;
+
+      if (hasArrows) {
+        prevBtn.style.display = (currentIndex === 0 && images.length > 1) ? "none" : "";
+        nextBtn.style.display = (currentIndex === images.length - 1 && images.length > 1) ? "none" : "";
+      }
     }
 
     function nextImage() {
-      currentIndex = (currentIndex + 1) % images.length;
-      showImage(currentIndex);
+      if (currentIndex < images.length - 1) {
+        currentIndex++;
+        showImage(currentIndex);
+      }
     }
 
-    function prevImage() {f
-      currentIndex = (currentIndex - 1 + images.length) % images.length;
-      showImage(currentIndex);
+    function prevImage() {
+      if (currentIndex > 0) {
+        currentIndex--;
+        showImage(currentIndex);
+      }
     }
 
-    nextBtn.addEventListener("click", nextImage);
-    prevBtn.addEventListener("click", prevImage);
+    if (hasArrows) {
+      nextBtn.addEventListener("click", nextImage);
+      prevBtn.addEventListener("click", prevImage);
+    }
+
+    // Show the first image initially
+    showImage(0);
   }
 
   initCarousel("carousel-1", ["friends-1.png", "friends-2.png", "friends-3.png"]);
   initCarousel("carousel-2", ["job1.png", "job2.png", "job3.png"]);
-
+  initCarousel("carousel-3", ["openly.png"]);
+  initCarousel("carousel-4", ["on being seen.png"]);
+  initCarousel("carousel-5", ["ive grown a lot.png"]);
 });
