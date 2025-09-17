@@ -174,6 +174,6 @@ document.addEventListener("DOMContentLoaded", function () {
   initCarousel("carousel-1", ["friends-1.png", "friends-2.png", "friends-3.png"]);
   initCarousel("carousel-2", ["job1.png", "job2.png", "job3.png"]);
   initCarousel("carousel-3", ["openly.png"]);
-  initCarousel("carousel-4", ["on being seen.png"]);
+  initCarousel("carousel-4", ["seen.png"]);
   initCarousel("carousel-5", ["grown.png"]);
 });
